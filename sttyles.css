@@ -114,9 +114,18 @@ input:focus {
     padding: 15px;
     margin-top: 15px;
     cursor: pointer;
-
+    display: flex;
+    justify-content: space-between;
 }
 
-.done {
+.deleteButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.task span.done {
     text-decoration: line-through;
+    color: gray;
+    /* Cambia el color del texto tachado si lo deseas */
 }

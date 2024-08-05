@@ -25,17 +25,39 @@ const addNewTask = event => {
         return;
     }
 
-    //creacion de la tarea
+    // Creación de la tarea
     const task = document.createElement('div');
     task.classList.add('task', 'roundBorder');
     task.addEventListener('click', changeTaskState);
-    task.textContent = value;
+
+    // Envolver el texto de la tarea en un span
+    const taskText = document.createElement('span');
+    taskText.textContent = value;
+    task.appendChild(taskText);
+
+    // Creación del botón de eliminación
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Eliminar';
+    deleteButton.classList.add('deleteButton');
+    deleteButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Evita que el evento click en el botón dispare el cambio de estado de la tarea
+        task.remove();
+    });
+
+    // Añadir el botón de eliminación a la tarea
+    task.appendChild(deleteButton);
+
+    // Añadir la tarea al contenedor
     taskContainer.prepend(task);
     event.target.reset();
 }
 
 const changeTaskState = event => {
-    event.target.classList.toggle('done');
+    if (event.target.classList.contains('deleteButton')) {
+        return;
+    }
+    const taskText = event.currentTarget.querySelector('span');
+    taskText.classList.toggle('done');
 }
 
 const order = () => {
